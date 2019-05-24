@@ -3,14 +3,12 @@
       <v-container>
     <v-form
       ref="form"
-      v-model="valid"
       lazy-validation
     >
     <v-layout align-center>
         <v-flex md9>
       <v-text-field
-        v-model="name"
-        :rules="nameRules"
+        v-model="title"
         label="Add todo"
         required
       ></v-text-field>
@@ -18,7 +16,7 @@
       <v-flex md3>
       <v-btn
         color=""
-        @click="reset"
+        @click="onSubmit"
       >
         Add
       </v-btn>
@@ -30,8 +28,21 @@
 </template>
 
 <script>
+import { mapActions} from 'vuex';
 export default {
-    name: "AddTodo"
+    name: "AddTodo",
+    data(){
+      return {
+      title: ''
+      }
+    },
+    methods: {
+      ...mapActions(['addTodo']),
+      onSubmit(e){
+        e.preventDefault();
+        this.addTodo(this.title);
+      }
+    }
 }
 </script>
 
